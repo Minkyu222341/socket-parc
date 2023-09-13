@@ -1,13 +1,11 @@
-package prac.chat.dto;
+package prac.chat.dto.response;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import prac.chat.entity.enumfoler.MessageType;
 
 /**
  * packageName    : prac.chat.dto
- * fileName       : ChatMessageRequest
+ * fileName       : ChatResponse
  * author         : MinKyu Park
  * date           : 2023-09-08
  * description    : 
@@ -17,13 +15,14 @@ import prac.chat.entity.enumfoler.MessageType;
  * 2023-09-08        MinKyu Park       최초 생성
  */
 @Getter
-@Setter
-@ToString
-public class ChatMessageRequest {
-	private Long roomId;
+public class ChatResponse {
+	private String name;
 	private String message;
-	private MessageType type;
-	private String nickName;
-	private Long memberId;
 
+	@Builder
+
+	public ChatResponse(String name, String message) {
+		this.name = name;
+		this.message = message;
+	}
 }

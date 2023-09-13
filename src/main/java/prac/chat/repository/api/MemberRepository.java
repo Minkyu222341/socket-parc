@@ -1,12 +1,12 @@
-package prac.chat.repository;
+package prac.chat.repository.api;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import prac.chat.entity.ChatRoom;
+import prac.chat.entity.api.Member;
 
 /**
  * packageName    : prac.chat.repository
- * fileName       : ChatRoomRepository
+ * fileName       : MemberRepository
  * author         : MinKyu Park
  * date           : 2023-09-08
  * description    : 
@@ -15,5 +15,5 @@ import prac.chat.entity.ChatRoom;
  * -----------------------------------------------------------
  * 2023-09-08        MinKyu Park       최초 생성
  */
-public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
+public interface MemberRepository extends JpaRepository<Member,Long> {
 }

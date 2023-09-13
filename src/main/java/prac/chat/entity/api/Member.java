@@ -1,18 +1,14 @@
-package prac.chat.entity;
+package prac.chat.entity.api;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  * packageName    : prac.chat.entity
- * fileName       : ChatMessage
+ * fileName       : User
  * author         : MinKyu Park
  * date           : 2023-09-08
  * description    : 
@@ -23,23 +19,12 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChatMessage {
+public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String message;
-	private String sender;
-	@ManyToOne
-	private ChatRoom chatRoom;
-	@ManyToOne
-	private Member member;
 
-	@Builder
-	public ChatMessage(String message, String sender, ChatRoom chatRoom, Member member) {
-		this.message = message;
-		this.sender = sender;
-		this.chatRoom = chatRoom;
-		this.member = member;
-	}
+	private String loginId;
+
+	private String name;
 }

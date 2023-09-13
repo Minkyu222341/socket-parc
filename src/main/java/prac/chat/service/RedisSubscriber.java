@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import prac.chat.dto.ChatMessageRequest;
-import prac.chat.dto.GetChatMessageResponse;
+import prac.chat.dto.request.ChatMessageRequest;
+import prac.chat.dto.response.GetChatMessageResponse;
 import prac.chat.entity.enumfoler.MessageType;
 import prac.chat.exception.ChatMessageNotFoundException;
 

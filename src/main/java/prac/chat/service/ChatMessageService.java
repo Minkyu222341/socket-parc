@@ -1,18 +1,17 @@
 package prac.chat.service;
 
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import prac.chat.dto.ChatMessageRequest;
-import prac.chat.entity.ChatMessage;
-import prac.chat.entity.ChatRoom;
-import prac.chat.entity.Member;
+import prac.chat.dto.request.ChatMessageRequest;
+import prac.chat.dto.request.RoomCreateRequest;
+import prac.chat.entity.api.ChatRoom;
+import prac.chat.entity.api.Member;
+import prac.chat.entity.chat.ChatMessage;
 import prac.chat.exception.ChatRoomNotFoundException;
-import prac.chat.repository.ChatMessageRepository;
-import prac.chat.repository.ChatRoomRepository;
+import prac.chat.repository.api.ChatRoomRepository;
+import prac.chat.repository.chat.ChattingMessageRepository;
 
 /**
  * packageName    : prac.chat.service
@@ -30,34 +29,36 @@ import prac.chat.repository.ChatRoomRepository;
 public class ChatMessageService {
 
 	private final ChatRoomRepository chatRoomRepository;
-	private final ChatMessageRepository chatMessageRepository;
-	private final ChannelTopic channelTopic;
-	private final RedisTemplate redisTemplate;
+	private final ChattingMessageRepository chatMessageRepository;
+	// private final ChannelTopic channelTopic;
+	// private final RedisTemplate redisTemplate;
 
 	@Transactional
-	public void sendMessage(ChatMessageRequest chatMessageRequest, Member member) {
+	public void sendMessage(ChatMessageRequest req, Member member) {
 		// public List<ChatResponse> sendMessage(ChatMessageRequest chatMessageRequest, Member member) {
-		ChatRoom chatRoom = chatRoomRepository.findById(chatMessageRequest.getRoomId()).orElseThrow(
+		ChatRoom chatRoom = chatRoomRepository.findById(req.getRoomId()).orElseThrow(
 			ChatRoomNotFoundException::new);
 
 		//채팅 생성 및 저장
 		ChatMessage chatMessage = ChatMessage.builder()
 			.chatRoom(chatRoom)
 			.member(member)
-			.message(chatMessageRequest.getMessage())
+			.message(req.getMessage())
 			.build();
 
-		System.err.println(chatMessageRequest.toString());
+		chatMessageRepository.insert(chatMessage);
 
-		chatMessageRepository.save(chatMessage);
-
-		String topic = channelTopic.getTopic();
+		// String topic = channelTopic.getTopic();
 
 		// ChatMessageRequest에 유저정보, 현재시간 저장
-		chatMessageRequest.setNickName(member.getName());
-		chatMessageRequest.setMemberId(member.getId());
+		// req.setNickName(member.getName());
+		// req.setMemberId(member.getId());
 
-		redisTemplate.convertAndSend(topic, chatMessageRequest);
+		// redisTemplate.convertAndSend(topic, chatMessageRequest);
+
+	}
+
+	public void createChattingRoom(RoomCreateRequest request) {
 
 	}
 }
