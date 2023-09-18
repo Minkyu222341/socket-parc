@@ -1,15 +1,14 @@
 package prac.chat.entity.chat;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import prac.chat.entity.api.ChatRoom;
-import prac.chat.entity.api.Member;
 
 /**
  * packageName    : prac.chat.entity
@@ -28,18 +27,25 @@ import prac.chat.entity.api.Member;
 public class ChatMessage {
 	@Id
 	private String id;
-	private String message;
-	private String sender;
-	@ManyToOne
-	private ChatRoom chatRoom;
-	@ManyToOne
-	private Member member;
+	private Integer chatRoomNo;
+	private Integer senderNo;
+	private String senderName;
+	private String contentType;
+	private String content;
+	private LocalDateTime sendDate;
+	private long readCount;
 
 	@Builder
-	public ChatMessage(String message, String sender, ChatRoom chatRoom, Member member) {
-		this.message = message;
-		this.sender = sender;
-		this.chatRoom = chatRoom;
-		this.member = member;
+	public ChatMessage(String id, Integer chatRoomNo, Integer senderNo, String senderName, String contentType,
+		String content, LocalDateTime sendDate, long readCount) {
+		this.id = id;
+		this.chatRoomNo = chatRoomNo;
+		this.senderNo = senderNo;
+		this.senderName = senderName;
+		this.contentType = contentType;
+		this.content = content;
+		this.sendDate = sendDate;
+		this.readCount = readCount;
 	}
+
 }
